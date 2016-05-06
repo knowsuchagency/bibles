@@ -78,7 +78,7 @@ class Bible(FlatDict):
 
 
 if __name__ == "__main__":
-    versions = ('NIV', 'MSG', 'NLT')
+    versions = ('NIV', 'MSG', 'NLT', 'ESV')
     path = "./bibles/{version}/{version}.json"
     paths = [path.format(version=version) for version in versions]
     dictionary = {}
