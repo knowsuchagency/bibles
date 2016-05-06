@@ -41,12 +41,13 @@ class Bible(FlatDict):
                 data = {path.stem: data}
                 dictionary.update(data)
 
+        # Use the FlatDict initializer to populate our dictionary
         super().__init__(dictionary)
         self._versions = set()
         self._books = set()
         self._chapters = set()
         self._verses = {}  # a dictionary of bible verses
-        # Key we can use to look up bible verses later on
+        # The key for our Bible._verses dictionary
         Key = namedtuple('Key', ['version', 'book', 'chapter', 'verse'])
         for key in self.keys():
             splitkey = key.split(':')
@@ -54,14 +55,12 @@ class Bible(FlatDict):
                 version, book, chapter, verse = splitkey
                 chapter = int(chapter)
                 verse = int(verse)
-                # A very few verses have no text, so we replace them with empty strings
+                # A few verses have no text, so we replace them with empty strings
                 text = self[key] or ''
-                chapter_nt = Bible.Chapter(book, chapter)
                 self._versions.add(version)
                 self._books.add(book)
-                self._chapters.add(chapter_nt)
-                self._verses[Key(version, book, chapter, verse)] = \
-                    Bible.Verse(version, book, chapter, verse, text)
+                self._chapters.add(Bible.Chapter(book, chapter))
+                self._verses[Key(version, book, chapter, verse)] = Bible.Verse(version, book, chapter, verse, text)
 
     Chapter = namedtuple('Chapter', ['book', 'chapter'])
     Verse = namedtuple('Verse', ['version', 'book', 'chapter', 'verse', 'text'])
