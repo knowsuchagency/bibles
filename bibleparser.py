@@ -54,7 +54,8 @@ class Bible(FlatDict):
                 version, book, chapter, verse = splitkey
                 chapter = int(chapter)
                 verse = int(verse)
-                text = self[key]
+                # A very few verses have no text, so we replace them with empty strings
+                text = self[key] or ''
                 chapter_nt = Bible.Chapter(book, chapter)
                 self._versions.add(version)
                 self._books.add(book)
