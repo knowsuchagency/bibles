@@ -1,6 +1,7 @@
 from collections import namedtuple
 from flatdict import FlatDict
-import json, pathlib
+from pathlib import Path
+import json
 
 
 def replacew(item):
@@ -14,9 +15,33 @@ def replacew(item):
 
 
 class Bible(FlatDict):
+    def __init__(self, path=__file__):
+        """Initialize a Bible object from a filepath. Assume module is adjacent to bibles filepath.
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        example:
+        root/
+            bibleparser.py
+            bibles/
+                ESV/
+                    ESV.json
+                MSG/
+                ...
+        """
+        if path.endswith('bibleparser.py'):
+            bibles_path = Path(__file__).parent.joinpath('bibles')
+        else:
+            bibles_path = Path(path)
+        bible_paths = list(bibles_path.rglob("*.json"))
+        dictionary = {}
+        for path in bible_paths:
+            with path.open() as foo:
+                # remove whitespace from dictionary keys
+                data = replacew(json.load(foo))
+                # make the bible version the top-level key in the dictionary
+                data = {path.stem: data}
+                dictionary.update(data)
+
+        super().__init__(dictionary)
         self._versions = set()
         self._books = set()
         self._chapters = set()
@@ -54,7 +79,6 @@ class Bible(FlatDict):
         """
         return list(self._books)
 
-
     @property
     def verses(self):
         """
@@ -79,29 +103,14 @@ class Bible(FlatDict):
         """
         Return the text for a verse based on the bible version, book, chapter, and verse number.
         The version will default to the new international version if not specified.
+        If no verse is found, return None
 
         i.e. bible.get_verse('Jeremiah', 51, 6) -> '"Flee from Babylon! Run for your lives! ...'
         """
         lookup = self._verses.get((version, book, chapter, verse))
         return lookup.text if lookup is not None else lookup
 
-def main():
-    import pathlib
-    cwd = pathlib.Path(__file__).parent
-    bibles_path = pathlib.Path(cwd, 'bibles')
-    bible_paths = list(bibles_path.rglob("*.json"))
-    dictionary = {}
-    for path in bible_paths:
-        with path.open() as foo:
-            # remove whitespace from dictionary keys
-            data = replacew(json.load(foo))
-            # make the bible version the top-level key in the dictionary
-            data = {path.stem: data}
-            dictionary.update(data)
-    bible = Bible(dictionary)
-    return bible
-
 
 if __name__ == "__main__":
-    bible = main()
+    bible = Bible()
     print(bible)
