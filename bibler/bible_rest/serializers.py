@@ -1,7 +1,8 @@
-from .models import *
+from .models import BibleVerse
 from rest_framework import serializers
 
-class BibleVersionSerializer(serializers.ModelSerializer):
+
+class BibleVerseSerializer(serializers.ModelSerializer):
     class Meta:
-        model = BibleVersion
-        fields = ('id', 'name')
+        model = BibleVerse
+        fields = ('id', 'version', 'book', 'chapter', 'verse', 'text')
