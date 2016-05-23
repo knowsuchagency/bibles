@@ -3,7 +3,6 @@ from flatdict import FlatDict
 from pathlib import Path
 import json
 
-
 def replacew(item):
     """
     Replace whitespace with dashes in keys and flatten nested dictionary.
