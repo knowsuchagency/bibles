@@ -19,5 +19,6 @@ bible = bibleparser.Bible(path=bibles_path)
 # tqdm will give us a progress bar for how quickly the database is seeded
 for verse in tqdm(bible.verses):
     verse = verse._asdict()
-    bible_verse = BibleVerse(**verse)
-    bible_verse.save()
+    BibleVerse.objects.get_or_create(**verse)
+    # bible_verse = BibleVerse(**verse)
+    # bible_verse.save()
