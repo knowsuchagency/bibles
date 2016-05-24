@@ -6,8 +6,6 @@ from tqdm import tqdm
 import django, os, sys, bibleparser
 
 # configure django so as to be able to use the models api
-bibler = Path('.', 'bibler')
-sys.path.append(str(bibler))
 os.environ['DJANGO_SETTINGS_MODULE'] = 'bibler.settings'
 django.setup()
 
@@ -20,5 +18,4 @@ bible = bibleparser.Bible(path=bibles_path)
 for verse in tqdm(bible.verses):
     verse = verse._asdict()
     BibleVerse.objects.get_or_create(**verse)
-    # bible_verse = BibleVerse(**verse)
-    # bible_verse.save()
+
