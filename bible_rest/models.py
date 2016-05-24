@@ -8,7 +8,7 @@ class BibleVerse(models.Model):
     book = models.CharField(max_length=20)
     chapter = models.IntegerField()
     verse = models.IntegerField()
-    text = models.CharField(max_length=700)
+    text = models.TextField()
 
     class Meta:
         unique_together = (('version', 'book', 'chapter', 'verse'),)
