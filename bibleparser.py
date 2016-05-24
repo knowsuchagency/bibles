@@ -1,6 +1,7 @@
 from __future__ import print_function
 from collections import namedtuple
 from flatdict import FlatDict
+
 try:
     from pathlib import Path
 except ImportError:
@@ -31,7 +32,10 @@ class Bible(FlatDict):
                 MSG/
                 ...
         """
-        if path.endswith('bibleparser.py'):
+
+        if isinstance(path, Path):
+            bibles_path = path
+        elif path.endswith('bibleparser.py'):
             bibles_path = Path(__file__).parent.joinpath('bibles')
         else:
             bibles_path = Path(path)
