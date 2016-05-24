@@ -1,7 +1,11 @@
 from . import views
 from rest_framework import routers
 
-router = routers.SimpleRouter()
-router.register(r'verses', views.VerseViewSet)
+router = routers.DefaultRouter()
+
+router.register(r'verses',
+                views.VerseViewSet,
+                base_name='verse'
+                )
 
 urlpatterns = router.urls

@@ -1,1 +1,1 @@
-web: gunicorn bibler.wsgipwd
+web: gunicorn bibler.wsgi

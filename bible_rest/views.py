@@ -1,4 +1,5 @@
 from rest_framework import filters, viewsets
+from django.views.generic import ListView
 from .models import BibleVerse
 from .serializers import BibleVerseSerializer
 
@@ -10,3 +11,7 @@ class VerseViewSet(viewsets.ReadOnlyModelViewSet):
     filter_fields = ('version', 'book', 'chapter', 'verse')
     ordering_fields = ('version', 'book', 'chapter', 'verse')
     search_fields = ('text',)
+
+
+class VerseList(ListView):
+    model = BibleVerse

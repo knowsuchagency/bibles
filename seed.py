@@ -3,7 +3,7 @@ try:
 except ImportError:
     from pathlib2 import Path
 from tqdm import tqdm
-import django, os, sys, bibleparser
+import django, os, bibleparser
 
 # configure django so as to be able to use the models api
 os.environ['DJANGO_SETTINGS_MODULE'] = 'bibler.settings'
