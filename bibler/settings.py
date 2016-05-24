@@ -85,14 +85,13 @@ WSGI_APPLICATION = 'bibler.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-if LOCAL_FLAG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-else:
+}
+if not LOCAL_FLAG:
     # Update database configuration with $DATABASE_URL.
     import dj_database_url
     db_from_env = dj_database_url.config()
