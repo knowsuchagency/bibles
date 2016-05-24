@@ -10,5 +10,8 @@ class BibleVerse(models.Model):
     verse = models.IntegerField()
     text = models.CharField(max_length=500)
 
+    class Meta:
+        unique_together = ('version', 'book', 'chapter', 'verse')
+
     def __str__(self):
         return "{}:{}:{} {}".format(*map(str, (self.book, self.chapter, self.verse, self.version)))
