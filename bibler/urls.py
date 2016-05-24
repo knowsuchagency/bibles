@@ -21,5 +21,6 @@ from django.shortcuts import redirect
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r"^api/", include("bible_rest.urls")),
-    url(r"^$", RedirectView.as_view(url='api'))
+    url(r"^$", RedirectView.as_view(url='api')),
+    url(r'^docs/', include('rest_framework_swagger.urls')),
 ]
