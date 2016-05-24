@@ -4,7 +4,7 @@ from django.utils.encoding import python_2_unicode_compatible
 
 @python_2_unicode_compatible
 class BibleVerse(models.Model):
-    version = models.CharField(max_length=20, default='ESV')
+    version = models.CharField(max_length=20)
     book = models.CharField(max_length=20)
     chapter = models.IntegerField()
     verse = models.IntegerField()

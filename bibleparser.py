@@ -1,6 +1,11 @@
+from __future__ import print_function
 from collections import namedtuple
 from flatdict import FlatDict
-from pathlib import Path
+try:
+    from pathlib import Path
+except ImportError:
+    from pathlib2 import Path
+
 import json
 
 def replacew(item):
@@ -41,7 +46,7 @@ class Bible(FlatDict):
                 dictionary.update(data)
 
         # Use the FlatDict initializer to populate our dictionary
-        super().__init__(dictionary)
+        super(Bible, self).__init__(dictionary)
         self._versions = set()
         self._books = set()
         self._chapters = set()
