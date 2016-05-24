@@ -14,8 +14,15 @@ from bible_rest.models import BibleVerse
 bibles_path = Path('.', 'bibles')
 bible = bibleparser.Bible(path=bibles_path)
 
+virgin_db = len(list(BibleVerse.objects.all())) == 0
+
 # tqdm will give us a progress bar for how quickly the database is seeded
 for verse in tqdm(bible.verses):
     verse = verse._asdict()
-    BibleVerse.objects.get_or_create(**verse)
+
+    # either populate the database for the first time or update it
+    if virgin_db:
+        BibleVerse(**verse).save()
+    else:
+        BibleVerse.objects.get_or_create(**verse)
 
