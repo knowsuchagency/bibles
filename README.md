@@ -1,11 +1,8 @@
-Bibles
-======
+A dead-simple REST API for the bible made with django-rest-framework. An example deployment can be found [HERE](bibler.herokuapp.com).
 
-Machine-readable vesions of English translations of the Bible
+If you want to run it locally on localhost:8000 clone the project and run the following commands:
 
-Available:
-
-* English Standard Version (ESV)
-* New International Version (NIV)
-* The Message (MSG)
-* New Living Translation (NLT)
+  pip install -r requirements.txt
+  python manage.py migrate
+  python seed.py
+  python manage.py runserver
