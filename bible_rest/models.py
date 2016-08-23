@@ -13,5 +13,8 @@ class BibleVerse(models.Model):
     class Meta:
         unique_together = (('version', 'book', 'chapter', 'verse'),)
 
+    def natural_key(self):
+        return (self.version, self.book, self.chapter, self.verse)
+
     def __str__(self):
         return "{}:{}:{} {}".format(*map(str, (self.book, self.chapter, self.verse, self.version)))
